@@ -1,9 +1,9 @@
 $(function () {
 
     var
+        processURL = '/process_star_rating.php',
         output = [],
-        rating_star_class = '.star-rating_active .star-rating__item';
-
+        ratingStarClass = '.star-rating_active .star-rating__item';
     if (localStorage.getItem('star_rating')) {
         output = JSON.parse(localStorage.getItem('star_rating'));
     }
@@ -11,10 +11,7 @@ $(function () {
         var
             _this = this,
             ratingId = $(_this).attr('data-id');
-        if (output.indexOf(ratingId) < 0) {
-            $(_this).addClass('star-rating_active');
-        }
-        $.post('/process_star_rating.php', { 'action': 'get_rating', 'id': ratingId })
+        $.post(processURL, { 'action': 'get_rating', 'id': ratingId })
             .done(function (data) {
                 if (data['result'] === 'success') {
                     var
@@ -23,6 +20,17 @@ $(function () {
                     $(_this).find('.star-rating__live').css('width', ratingAvg / 5 * 100 + '%');
                     $(_this).closest('.star-rating__wrapper').find('.star-rating__avg').text(ratingAvg.toFixed(1));
                     $(_this).closest('.star-rating__wrapper').find('.star-rating__votes').text('оценок: ' + totalVotes);
+                    if (data['data']['is_vote'] !== undefined) {
+                        if (data['data']['is_vote'] === false) {
+                            if (output.indexOf(ratingId) < 0) {
+                                $(_this).addClass('star-rating_active');
+                            }
+                        }
+                    } else {
+                        if (output.indexOf(ratingId) < 0) {
+                            $(_this).addClass('star-rating_active');
+                        }
+                    }
                 }
             });
     });
@@ -55,13 +63,13 @@ $(function () {
         $(this).closest('.star-rating__live').find('.star-rating__item').removeClass('star-rating__item_active');
     });
 
-    $(document).on('click', rating_star_class, function (e) {
+    $(document).on('click', ratingStarClass, function (e) {
         e.preventDefault();
         var
             _this = this,
             ratingId = $(_this).closest('.star-rating').attr('data-id'),
             rating = $(_this).attr('data-rating');
-        $.post('/process_star_rating.php', { 'action': 'set_rating', 'id': ratingId, 'rating': rating })
+        $.post(processURL, { 'action': 'set_rating', 'id': ratingId, 'rating': rating })
             .done(function (data) {
                 if (!$.isEmptyObject(data)) {
                     if (data['result'] === 'success') {
