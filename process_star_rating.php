@@ -1,13 +1,13 @@
 <?php
 
 const
-  DB_HOST = 'localhost',
-  DB_NAME = 'mydb',
-  DB_CHARSET = 'utf8',
-  DB_USER = 'root',
-  DB_PASSWORD = '',
-  MAX_RATING = 5,
-  IS_CHECK_IP = false;
+DB_HOST = 'localhost',
+DB_NAME = 'mydb',
+DB_CHARSET = 'utf8',
+DB_USER = 'root',
+DB_PASSWORD = '',
+MAX_RATING = 5,
+IS_CHECK_IP = false;
 
 function log_write($message)
 {
@@ -15,22 +15,26 @@ function log_write($message)
     file_put_contents('error.log', $log, FILE_APPEND);
 }
 
-function getIp() {
+function getIp()
+{
     $keys = [
-      'HTTP_CLIENT_IP',
-      'HTTP_X_FORWARDED_FOR',
-      'REMOTE_ADDR'
+        'HTTP_CLIENT_IP',
+        'HTTP_X_FORWARDED_FOR',
+        'REMOTE_ADDR'
     ];
     foreach ($keys as $key) {
-      if (!empty($_SERVER[$key])) {
-        $ip = trim(end(explode(',', $_SERVER[$key])));
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
-          return $ip;
+        if (!empty($_SERVER[$key])) {
+            $ip = trim(end(explode(',', $_SERVER[$key])));
+            if (filter_var($ip, FILTER_VALIDATE_IP)) {
+                return $ip;
+            }
         }
-      }
     }
+    return false;
 }
-  
+
+$output['result'] = 'error';
+
 if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
     exit(json_encode($output));
 }
@@ -39,18 +43,16 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit(json_encode($output));
 }
 
-$output['result'] = 'error';
-
 $count = 0;
 $totalVotes = 1;
 if (empty($_POST['id'])) {
-    log_write('Не передан id!');   
+    log_write('Не передан id!');
     exit(json_encode($output));
 }
 $ratingId = filter_var($_POST['id'], FILTER_SANITIZE_STRING);
 if (strlen($ratingId) == 0) {
     log_write('Параметр id имеет в качестве значения пустую строку!');
-    exit(json_encode($output));   
+    exit(json_encode($output));
 }
 
 try {
@@ -81,7 +83,7 @@ switch ($_POST['action']) {
                 if (IS_CHECK_IP == true) {
                     $sql = 'SELECT count(*) FROM star_rating_ip WHERE rating_id = :rating_id AND rating_ip = :rating_ip';
                     $result = $conn->prepare($sql);
-                    $data = ['rating_id' => $row[id], 'rating_ip' => getIp()];
+                    $data = ['rating_id' => $row['id'], 'rating_ip' => getIp()];
                     $result->execute($data);
                     $countRows = $result->fetchColumn();
                     if ($countRows == 0) {
@@ -95,7 +97,7 @@ switch ($_POST['action']) {
             log_write('Ошибка выборки данных: ' . $e->getMessage());
             break;
         }
-        $output['result'] = 'success';      
+        $output['result'] = 'success';
         break;
 
     case 'set_rating':
@@ -126,7 +128,7 @@ switch ($_POST['action']) {
             log_write('Ошибка выборки данных: ' . $e->getMessage());
             break;
         }
-        
+
         if ($count == 0) {
             try {
                 $result = $conn->prepare('INSERT INTO star_rating (rating_id, rating_avg, total_votes) VALUES (:rating_id, :rating_avg, :total_votes)');
@@ -145,12 +147,12 @@ switch ($_POST['action']) {
                             } catch (PDOException $e) {
                                 log_write('Ошибка добавления новой записи в таблицу star_rating_ip: ' . $e->getMessage());
                                 break;
-                            }    
+                            }
                         }
                     } catch (PDOException $e) {
                         log_write('Ошибка выборки данных: ' . $e->getMessage());
                         break;
-                    }      
+                    }
                 }
             } catch (PDOException $e) {
                 log_write('Ошибка добавления новой записи в базу: ' . $e->getMessage());
@@ -158,13 +160,13 @@ switch ($_POST['action']) {
             }
         } else {
             $ratingAvg = ($ratingAvg * $totalVotes + $rating) / ($totalVotes + 1);
-            $totalVotes = $totalVotes + 1;        
+            $totalVotes = $totalVotes + 1;
             if (IS_CHECK_IP == true) {
                 $ip = getIp();
                 $sql = 'SELECT count(*) FROM star_rating_ip WHERE rating_id = :rating_id AND rating_ip = :rating_ip';
                 $result = $conn->prepare($sql);
                 $data = ['rating_id' => $id, 'rating_ip' => $ip];
-                $result->execute($data);               
+                $result->execute($data);
                 $countRows = $result->fetchColumn();
                 if ($countRows > 0) {
                     break;
@@ -175,13 +177,13 @@ switch ($_POST['action']) {
                 } catch (PDOException $e) {
                     log_write('Ошибка добавления новой записи в таблицу star_rating_ip: ' . $e->getMessage());
                     break;
-                }                
+                }
             }
             $sql = 'UPDATE star_rating SET rating_avg=:rating_avg, total_votes=:total_votes WHERE rating_id=:rating_id';
             $data = [
-              'rating_id' => $ratingId,
-              'rating_avg' => $ratingAvg,
-              'total_votes' => $totalVotes
+                'rating_id' => $ratingId,
+                'rating_avg' => $ratingAvg,
+                'total_votes' => $totalVotes
             ];
             try {
                 $conn->prepare($sql)->execute($data);
@@ -190,12 +192,12 @@ switch ($_POST['action']) {
                 break;
             }
         }
-        
+
         $output['result'] = 'success';
-        
+
         $output['data'] = [
-          'rating_avg' => $ratingAvg,
-          'total_votes' => $totalVotes
+            'rating_avg' => $ratingAvg,
+            'total_votes' => $totalVotes
         ];
         break;
 }
