@@ -2,6 +2,7 @@ $(function () {
 
   var
     processURL = '/process_star_rating.php',
+    maxStars = 5,
     output = [],
     ratingStarClass = '.star-rating_active .star-rating__item';
   if (localStorage.getItem('star_rating')) {
@@ -17,7 +18,7 @@ $(function () {
           var
             ratingAvg = parseFloat(data['data']['rating_avg']),
             totalVotes = data['data']['total_votes'];
-          $(_this).find('.star-rating__live').css('width', ratingAvg.toFixed(1) / 5 * 100 + '%');
+          $(_this).find('.star-rating__live').css('width', ratingAvg.toFixed(1) / maxStars * 100 + '%');
           $(_this).closest('.star-rating__wrapper').find('.star-rating__avg').text(ratingAvg.toFixed(1));
           $(_this).closest('.star-rating__wrapper').find('.star-rating__votes').text('оценок: ' + totalVotes);
           if (data['data']['is_vote'] !== undefined) {
@@ -79,7 +80,7 @@ $(function () {
               output = [];
             $(_this).closest('.star-rating').removeClass('star-rating_active')
               .find('.star-rating__item_active').removeClass('star-rating__item_active')
-              .end().find('.star-rating__live').css('width', ratingAvg / 5 * 100 + '%');
+              .end().find('.star-rating__live').css('width', ratingAvg / maxStars * 100 + '%');
             $(_this).closest('.star-rating__wrapper')
               .find('.star-rating__avg').text(ratingAvg.toFixed(1))
               .end().find('.star-rating__votes').text('оценок: ' + totalVotes);
