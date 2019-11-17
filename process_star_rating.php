@@ -7,7 +7,7 @@ DB_CHARSET = 'utf8',
 DB_USER = 'root',
 DB_PASSWORD = '',
 MAX_RATING = 5,
-IS_CHECK_IP = false;
+IS_CHECK_IP = true;
 
 function log_write($message)
 {
