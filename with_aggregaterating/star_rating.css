@@ -1,0 +1,67 @@
+.star-rating__container {
+    display: inline-block;
+}
+
+.star-rating__wrapper {
+    position: relative;
+    display: flex;
+}
+
+.star-rating {
+    display: inline-block;
+    position: relative;
+    user-select: none;
+}
+
+.star-rating__bg {
+    color: #e0e0e0;
+    display: flex;
+}
+
+.star-rating__live {
+    display: flex;
+    color: #ffb74d;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.star-rating_active:hover .star-rating__live {
+    overflow: auto;
+    width: 100% !important;
+    color: #e0e0e0;
+}
+
+.star-rating__item_active {
+    color: #fb8c00;
+    cursor: pointer;
+    transition: color 0.1s ease-in-out;
+}
+
+.star-rating__item {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+}
+
+.star-rating__avg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    text-align: center;
+    width: 2em;
+}
+
+.star-rating__votes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 0.5em;
+    font-size: 0.875em;
+}
+
+.d-none {
+    display: none;
+}
