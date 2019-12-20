@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PHP Star Rating</title>
+  <style>
+    body {
+      margin: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      text-align: left;
+    }
+  </style>
+  <link rel="stylesheet" href="star_rating.css">
+</head>
+
+<div>
+  <div itemtype="http://schema.org/Product" itemscope>
+    <meta itemprop="mpn" content="925872" />
+    <meta itemprop="name" content="Executive Anvil" />
+    <link itemprop="image" href="https://example.com/photos/16x9/photo.jpg" />
+    <link itemprop="image" href="https://example.com/photos/4x3/photo.jpg" />
+    <link itemprop="image" href="https://example.com/photos/1x1/photo.jpg" />
+    <meta itemprop="description"
+      content="Sleeker than ACME's Classic Anvil, the Executive Anvil is perfect for the business traveler looking for something to drop from a height." />
+    <div itemprop="offers" itemtype="http://schema.org/Offer" itemscope>
+      <link itemprop="url" href="https://example.com/anvil" />
+      <meta itemprop="availability" content="https://schema.org/InStock" />
+      <meta itemprop="priceCurrency" content="USD" />
+      <meta itemprop="itemCondition" content="https://schema.org/UsedCondition" />
+      <meta itemprop="price" content="119.99" />
+      <meta itemprop="priceValidUntil" content="2020-11-05" />
+      <div itemprop="seller" itemtype="http://schema.org/Organization" itemscope>
+        <meta itemprop="name" content="Executive Objects" />
+      </div>
+    </div>
+
+    <!-- разметка star rating -->
+    <div class="star-rating__container">
+      <div class="star-rating__wrapper" itemprop="aggregateRating" itemscope
+        itemtype="http://schema.org/AggregateRating">
+        <div class="star-rating__avg" itemprop="ratingValue">4.4</div>
+        <div class="star-rating" data-id="page-1">
+          <div class="star-rating__bg">
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+          </div>
+          <div class="star-rating__live" style="width: 88%;">
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-rating="1">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-rating="2">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-rating="3">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-rating="4">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+            <svg class="star-rating__item" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-rating="5">
+              <path fill="currentColor"
+                d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z">
+              </path>
+            </svg>
+          </div>
+        </div>
+        <div class="star-rating__votes">
+          <div class="star-rating__votes_count"><span class="star-rating__votes_number"
+              itemprop="reviewCount">5</span><span class="star-rating__votes_text"> оценок</span></div>
+          <div class="star-rating__votes_message d-none">Оцени!</div>
+        </div>
+      </div>
+    </div>
+
+    <div itemprop="review" itemtype="http://schema.org/Review" itemscope>
+      <div itemprop="author" itemtype="http://schema.org/Person" itemscope>
+        <meta itemprop="name" content="Fred Benson" />
+      </div>
+    </div>
+    <meta itemprop="sku" content="0446310786" />
+    <div itemprop="brand" itemtype="http://schema.org/Thing" itemscope>
+      <meta itemprop="name" content="ACME" />
+    </div>
+  </div>
+</div>
+
+<script src="jquery-3.4.1.min.js"></script>
+<script src="star_rating.js"></script>
+</body>
+
+</html>
