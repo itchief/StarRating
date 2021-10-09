@@ -5,7 +5,7 @@ $(function () {
         output = [],
         ratingStarClass = '.star-rating_active .star-rating__item';
 
-    $('.star-rating').attr('data-id', location.pathname)
+    $('.star-rating').attr('data-id', location.pathname);
 
     if (localStorage.getItem('star_rating')) {
         output = JSON.parse(localStorage.getItem('star_rating'));
